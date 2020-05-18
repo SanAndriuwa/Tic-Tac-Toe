@@ -1,7 +1,11 @@
 #include <iostream>
 #include <stdlib.h>
+#include <chrono>
+#include <thread>
 #include <conio.h>
 #include "zaidimas.h"
+using namespace std::this_thread;
+using namespace std::chrono;
 using namespace std;
 
 char elementas[3][3] = { '1','2','3','4','5','6','7','8','9' };
@@ -13,10 +17,11 @@ Zaidimas::Zaidimas()
 
 void Zaidimas::menu()
 {
+	system("CLS");
 	cout << "\t Tic-Tac-Toe"<<endl;
 	cout << "\t  VGTU 2020"<<endl;
 	cout << endl;
-	cout << "\t Press (1) to start Tic-Tac-Toe game"<<endl;
+	cout << "\t Press (1) to start Multiplayer Tic-Tac-Toe game"<<endl;
 	cout << "\t Press (2) to see game instuctions"<<endl;
 	cout << "\t Press (3) to exit"<<endl;
 	cout << endl;
@@ -41,7 +46,7 @@ void Zaidimas::closeProgram()
 	cin >> tn;
 	if(tn=='T')
 	{
-		exit(EXIT_SUCCESS);
+		exit(0);
 	}
 	else
 	{
@@ -59,59 +64,141 @@ void Zaidimas::multiplayer()
 	}
 }
 
+void Zaidimas::singleplayer()
+{
+}
+
 void Zaidimas::instructions()
 {
-	cout << "Tic tac Toe";
-	cout << "Press chtoto to exit instructions menu [T]";
-	cin >> press;
-	if (press == 't')
+	system("CLS");
+	cout << "In order to win the game, a player must place three of their marks in a horizontal, vertical, or diagonal row.";
+	cout << endl;
+	cout << "Enter [T] to exit instructions menu : ";
+	cin >> tn;
+	if (tn == 'T')
 	{
 		menu();
 	}
+	else instructions();
 }
 
 void Zaidimas::playero(char elementas[3][3])
 {
+	system("CLS");
+	board(elementas);
 	cout << " player o, where you want to place O? :";
-		cin >> choice;
+	cin >> choice;
+	cout << endl;
 	switch (choice)
 	{
-		case 1:
+	case 1:
+		if (elementas[0][0] == 'X' || elementas[0][0] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[0][0] = 'O';
-			board(elementas);
-			break;
-		case 2:
+		}
+		break;
+	case 2:
+		if (elementas[0][1] == 'X' || elementas[0][1] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[0][1] = 'O';
-			board(elementas);
-			break;
-		case 3:
+		}
+		break;
+	case 3:
+		if (elementas[0][2] == 'X' || elementas[0][2] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[0][2] = 'O';
-			board(elementas);
-			break;
-		case 4:
+		}
+		break;
+	case 4:
+		if (elementas[1][0] == 'X' || elementas[1][0] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[1][0] = 'O';
-			board(elementas);
-			break;
-		case 5:
+		}
+		break;
+	case 5:
+		if (elementas[1][1] == 'X' || elementas[1][1] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[1][1] = 'O';
-			board(elementas);
-			break;
-		case 6:
+		}
+		break;
+	case 6:
+		if (elementas[1][2] == 'X' || elementas[1][2] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[1][2] = 'O';
-			board(elementas);
-			break;
-		case 7:
+		}
+		break;
+	case 7:
+		if (elementas[2][0] == 'X' || elementas[2][0] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[2][0] = 'O';
-			board(elementas);
-			break;
-		case 8:
+		}
+		break;
+	case 8:
+		if (elementas[2][1] == 'X' || elementas[2][1] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[2][1] = 'O';
-			board(elementas);
-			break;
-		case 9:
+		}
+		break;
+	case 9:
+		if (elementas[2][2] == 'X' || elementas[2][2] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playero(elementas);
+		}
+		else
+		{
 			elementas[2][2] = 'O';
-			board(elementas);
-			break;
+		}
+		break;
 	}
 }
 
@@ -119,55 +206,149 @@ void Zaidimas::board(char elementas[3][3])
 {
 	for (int i = 0; i < 3; i++)
 	{
+		if (i == 1)
+		{
+			cout << "----------";
+			cout << endl;
+		}
 		for (int j = 0; j < 3; j++)
 		{
+			if (j != 0 && j != 2)
+			{
+				cout << "|"<<ends;
+			}
 			cout << elementas[i][j] << ends;
+			if (j != 0 && j != 2)
+			{
+				cout << "|"<<ends;
+			}
+		}
+		if (i == 1)
+		{
+			cout << endl;
+			cout << "----------";
 		}
 		cout << endl;
 	}
+	cout<<endl;
 }
 
 void Zaidimas::playerx(char elementas[3][3])
 {
-	cout << " player x, where you want to place x? :";
+	system("CLS");
+	board(elementas);
+	cout << " player x, where you want to place X? :";
 	cin >> choice;
+	cout << endl;
 	switch (choice)
 	{
 	case 1:
-		elementas[0][0] = 'x';
-		board(elementas);
+		if (elementas[0][0] == 'X' || elementas[0][0] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[0][0] = 'X';
+		}
 		break;
 	case 2:
-		elementas[0][1] = 'x';
-		board(elementas);
+		if (elementas[0][1] == 'X' || elementas[0][1] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[0][1] = 'X';
+		}
 		break;
 	case 3:
-		elementas[0][2] = 'x';
-		board(elementas);
+		if (elementas[0][2] == 'X' || elementas[0][2] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[0][2] = 'X';
+		}
 		break;
 	case 4:
-		elementas[1][0] = 'x';
-		board(elementas);
+		if (elementas[1][0] == 'X' || elementas[1][0] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[1][0] = 'X';
+		}
 		break;
 	case 5:
-		elementas[1][1] = 'x';
-		board(elementas);
+		if (elementas[1][1] == 'X' || elementas[1][1] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[1][1] = 'X';
+		}
 		break;
 	case 6:
-		elementas[1][2] = 'x';
-		board(elementas);
+		if (elementas[1][2] == 'X' || elementas[1][2] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[1][2] = 'X';
+		}
 		break;
 	case 7:
-		elementas[2][0] = 'x';
-		board(elementas);
+		if (elementas[2][0] == 'X' || elementas[2][0] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[2][0] = 'X';
+		}
 		break;
 	case 8:
-		elementas[2][1] = 'x';
-		board(elementas);
+		if (elementas[2][1] == 'X' || elementas[2][1] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[2][1] = 'X';
+		}
 		break;
 	case 9:
-		elementas[2][2] = 'x';
-		board(elementas);
+		if (elementas[2][2] == 'X' || elementas[2][2] == 'O')
+		{
+			cout << "Elementas uzimtas, pasirinkite kita vieta";
+			sleep_for(seconds(5));
+			playerx(elementas);
+		}
+		else
+		{
+			elementas[2][2] = 'X';
+		}
 		break;
 	}
 }

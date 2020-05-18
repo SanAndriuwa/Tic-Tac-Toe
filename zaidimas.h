@@ -5,7 +5,6 @@ class Zaidimas
 	private:
 		int choice;
 		char tn;
-		int press;
 	public:
 		Zaidimas();
 		void board(char elementas[3][3]);
@@ -14,5 +13,10 @@ class Zaidimas
 		void menu();
 		void instructions();
 		void multiplayer();
+		void singleplayer();
 		void closeProgram();
+};
+class AI
+{
+
 };
