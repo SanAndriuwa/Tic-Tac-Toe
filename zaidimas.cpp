@@ -15,6 +15,52 @@ Zaidimas::Zaidimas()
 	menu();
 }
 
+void Zaidimas::checkifwinnerexists(char elementas[3][3])
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (elementas[i][0] == elementas[i][1] && elementas[i][1] == elementas[i][2])
+		{
+			winnerexists = true;
+		}
+	}
+	for (int j = 0; j < 3; j++)
+	{
+		if (elementas[0][j] == elementas[1][j] && elementas[1][j] == elementas[2][j])
+		{
+			winnerexists = true;
+		}
+	}
+	if (elementas[0][0] == elementas[1][1] && elementas[1][1] == elementas[2][2])
+	{
+		winnerexists = true;
+	}
+}
+
+void Zaidimas::checkifdraw(char elementas[3][3])
+{
+	int k = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (elementas[i][j] == 'O' || elementas[i][j] == 'X')
+			{
+				k++;
+			}
+		}
+	}
+	if (k == 9)
+	{
+		draw = true;
+	}
+	else 
+	{
+		k = 0;
+		draw = false;
+	}
+}
+
 void Zaidimas::menu()
 {
 	system("CLS");
@@ -29,6 +75,7 @@ void Zaidimas::menu()
 	switch (choice)
 	{
 	case 1:
+		clearboard(elementas);
 		multiplayer();
 		break;
 	case 2:
@@ -56,11 +103,63 @@ void Zaidimas::closeProgram()
 
 void Zaidimas::multiplayer()
 {
-	while (true)
+	winnerexists = false;
+	draw = false;
+	while (winnerexists==false&& draw == false )
 	{
 		board(elementas);
-		playerx(elementas);
-		playero(elementas);
+		if (winnerexists == false&& draw == false )
+		{
+			playerx(elementas);
+		}
+		checkifwinnerexists(elementas);
+		checkifdraw(elementas);
+		if (winnerexists)
+		{
+			winner = 'X';
+		}
+		if (winnerexists == false && draw == false)
+		{
+			playero(elementas);
+		}
+		checkifwinnerexists(elementas);
+		checkifdraw(elementas);
+		if (winnerexists&&winner!='X')
+		{
+			winner = 'O';
+		}
+		if (winnerexists)
+		{
+			system("CLS");
+			board(elementas);
+			cout << endl;
+			cout << "Player " << winner << " is winner!";
+			cout << endl;
+			sleep_for(seconds(5));
+		}
+		if (draw && winnerexists == false)
+		{
+			system("CLS");
+			board(elementas);
+			cout << endl;
+			cout << "DRAW!";
+			cout << endl;
+			sleep_for(seconds(5));
+		}
+	}
+	menu();
+}
+
+void Zaidimas::clearboard(char elementas[3][3])
+{
+	char k = '1';
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			elementas[i][j] = k;
+			k++;
+		}
 	}
 }
 
@@ -89,6 +188,12 @@ void Zaidimas::playero(char elementas[3][3])
 	cout << " player o, where you want to place O? :";
 	cin >> choice;
 	cout << endl;
+	if (choice > 9)
+	{
+		cout << "Elementas neegzistuoja, pasirinkite kita vieta";
+		sleep_for(seconds(5));
+		playero(elementas);
+	}
 	switch (choice)
 	{
 	case 1:
@@ -240,6 +345,12 @@ void Zaidimas::playerx(char elementas[3][3])
 	cout << " player x, where you want to place X? :";
 	cin >> choice;
 	cout << endl;
+	if (choice > 9)
+	{
+		cout << "Elementas neegzistuoja, pasirinkite kita vieta";
+		sleep_for(seconds(5));
+		playerx(elementas);
+	}
 	switch (choice)
 	{
 	case 1:
