@@ -76,14 +76,15 @@ void Zaidimas::menu()
 	cout << "\t Enter (1) to start Multiplayer Tic-Tac-Toe game ( PvP )"<<endl;
 	cout << "\t Enter (2) to start Singleplayer Tic-Tac-Toe game ( Player vs AI )" << endl;
 	cout << "\t Enter (3) to see game instuctions"<<endl;
-	cout << "\t Enter (4) to exit"<<endl;
+	cout << "\t Enter (4) to change players names" << endl;
+	cout << "\t Enter (5) to exit"<<endl;
 	cout << endl;
 	cout << "\t Choose option: ";
 	cin >> choice;
-	if (choice > 4 || choice < 1)
+	if (choice > 5 || choice < 1)
 	{
 		cout << endl;
-		cout << "\t Choice does not exist, try one more time" << endl;
+		cout << "\t Pasirinkimas neteisingas, bandikite dar karta" << endl;
 		sleep_for(seconds(3));
 		menu();
 	}
@@ -101,6 +102,9 @@ void Zaidimas::menu()
 		instructions();
 		break;
 	case 4:
+		playerNameOptions();
+		break;
+	case 5:
 		closeProgram();
 		break;
 	}
@@ -108,20 +112,28 @@ void Zaidimas::menu()
 
 void Zaidimas::closeProgram()
 {
-	cout << "Ar norite uzdaryti programa ? [Y/N] : ";
+	cout << "Ar norite uzdaryti programa ? [T/N] : ";
 	cin >> tn;
-	if(tn=='Y')
+	if(tn=='T')
 	{
 		exit(0);
 	}
-	else
+	if (tn == 'N')
 	{
 		menu();
+	}
+	else
+	{
+		cout << endl;
+		cout << "\t Pasirinkimas neteisingas, bandikite dar karta" << endl;
+		sleep_for(seconds(3));
+		closeProgram();
 	}
 }
 
 void Zaidimas::multiplayer()
 {
+	winner = 'D';
 	winnerexists = false;
 	draw = false;
 	while (winnerexists==false&& draw == false )
@@ -152,7 +164,13 @@ void Zaidimas::multiplayer()
 			system("CLS");
 			board(elementas);
 			cout << endl;
-			cout << "Player " << winner << " is winner!";
+			cout << winner;
+			if (winner == 'X')
+			{
+				cout << P1;
+			}
+			else cout << P2;
+			cout<< " is winner!";
 			cout << endl;
 			sleep_for(seconds(5));
 		}
@@ -337,6 +355,8 @@ bool AINT::arZaidimasGaliBaigtis() {
 void Zaidimas::singleplayer()
 {
 	AINT Good;
+	winner = 'D';
+
 	winnerexists = false;
 	draw = false;
 	while (winnerexists == false && draw == false)
@@ -369,7 +389,12 @@ void Zaidimas::singleplayer()
 			system("CLS");
 			board(elementas);
 			cout << endl;
-			cout << "Player " << winner << " is winner!";
+			if (winner == 'X')
+			{
+				cout << P1;
+			}
+			else cout << "Terminator ";
+			cout << " is winner!";
 			cout << endl;
 			sleep_for(seconds(5));
 		}
@@ -389,16 +414,22 @@ void Zaidimas::singleplayer()
 void Zaidimas::instructions()
 {
 	system("CLS");
-	cout << "\t In order to win the game, a player must place three of their marks in a horizontal,"<<endl<<"\t vertical, or diagonal row.";
-	cout << "\t X always goes first, and in the vent that no one hase three in a row, the stalemate is called a 'cat game' or 'draw'";
+	cout << "\t In order to win the game, a player must place three of their marks in a horizontal,"<<endl<<"\t vertical, or diagonal row."<<endl;
+	cout << "\t X always goes first, and in the event that no one hase three in a row,"<<endl<<"\t the stalemate is called a 'cat game' or 'draw'";
 	cout << endl;
-	cout << "Enter [T] to exit instructions menu : ";
+	cout << "\t Enter [T] to exit instructions menu : ";
 	cin >> tn;
 	if (tn == 'T')
 	{
 		menu();
 	}
-	else instructions();
+	else
+	{
+		cout << endl;
+		cout << "\t Pasirinkimas neteisingas, bandikite dar karta" << endl;
+		sleep_for(seconds(3));
+		instructions();
+	}
 }
 
 void Zaidimas::playerO(char elementas[3][3])
@@ -682,4 +713,36 @@ void Zaidimas::playerX(char elementas[3][3])
 		}
 		break;
 	}
+}
+
+void Zaidimas::playerNameOptions()
+{
+	system("CLS");
+	cout << "1as Zaidejas: " << P1<<endl;
+	cout << "2as Zaidejas: " << P2<<endl;
+	cout << endl;
+	cout << " Ar norite pakeisti vardus? [T/N] : ";
+	cin >> tn;
+	if (tn == 'T')
+	{
+		cout << endl;
+		cout << "Iveskite 1mo (X) Zaidejo varda: ";
+		cin >> P1;
+		cout << endl;
+		cout << "Iveskite 2o (O) Zaidejo varda: ";
+		cin >> P2;
+		playerNameOptions();
+	}
+	if (tn == 'N')
+	{
+		menu();
+	}
+	else
+	{
+		cout << endl;
+		cout << "\t Pasirinkimas neteisingas, bandikite dar karta" << endl;
+		sleep_for(seconds(3));
+		playerNameOptions();
+	}
+
 }

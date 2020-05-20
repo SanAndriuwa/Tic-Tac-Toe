@@ -7,7 +7,9 @@ class Zaidimas
 		bool draw;
 		int choice;
 		char tn;
-		char winner='D';
+		char winner;
+		string P1="Player1";
+		string P2="Player2";
 	public:
 		Zaidimas();
 		void board(char elementas[3][3]);
@@ -21,6 +23,7 @@ class Zaidimas
 		void checkIfWinnerExists(char elementas[3][3]);
 		void checkIfDraw(char elementas[3][3]);
 		void closeProgram();
+		void playerNameOptions();
 		~Zaidimas()
 		{};
 };

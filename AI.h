@@ -10,7 +10,6 @@ struct Move
 const char human = 'X';
 const char ai = 'O';
 
-
 class AINT
 {
 	public:
