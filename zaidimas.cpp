@@ -112,7 +112,8 @@ void Zaidimas::menu()
 
 void Zaidimas::closeProgram()
 {
-	cout << "Ar norite uzdaryti programa ? [T/N] : ";
+	cout << endl;
+	cout << "\t Ar norite uzdaryti programa ? [T/N] : ";
 	cin >> tn;
 	if(tn=='T')
 	{
@@ -164,10 +165,9 @@ void Zaidimas::multiplayer()
 			system("CLS");
 			board(elementas);
 			cout << endl;
-			cout << winner;
 			if (winner == 'X')
 			{
-				cout << P1;
+				cout <<"\t "<<P1;
 			}
 			else cout << P2;
 			cout<< " is winner!";
@@ -393,7 +393,7 @@ void Zaidimas::singleplayer()
 			{
 				cout << P1;
 			}
-			else cout << "Terminator ";
+			else cout << "\t Terminator ";
 			cout << " is winner!";
 			cout << endl;
 			sleep_for(seconds(5));
@@ -415,7 +415,8 @@ void Zaidimas::instructions()
 {
 	system("CLS");
 	cout << "\t In order to win the game, a player must place three of their marks in a horizontal,"<<endl<<"\t vertical, or diagonal row."<<endl;
-	cout << "\t X always goes first, and in the event that no one hase three in a row,"<<endl<<"\t the stalemate is called a 'cat game' or 'draw'";
+	cout << "\t X always goes first, and in the event that no one hase three in a row,"<<endl<<"\t the stalemate is called a 'cat game' or 'draw'.";
+	cout << endl;
 	cout << endl;
 	cout << "\t Enter [T] to exit instructions menu : ";
 	cin >> tn;
@@ -436,14 +437,13 @@ void Zaidimas::playerO(char elementas[3][3])
 {
 	system("CLS");
 	board(elementas);
-	cout << " player o, where you want to place O? :";
+	cout << P2<<" , where you want to place O? :";
 	cin >> choice;
 	cout << endl;
-	if ( choice > 9 || choice < 1 )
+	while (choice > 9 || choice < 1)
 	{
-		cout << " Elementas neegzistuoja, pasirinkite kita vieta ";
-		sleep_for(seconds(5));
-		playerO(elementas);
+		cout << "Elementas neegzistuoja, pasirinkite kita vieta: ";
+		cin >> choice;
 	}
 	switch (choice)
 	{
@@ -593,18 +593,18 @@ void Zaidimas::playerX(char elementas[3][3])
 {
 	system("CLS");
 	board(elementas);
-	cout << " player x, where you want to place X? :";
+	cout << P1 << " , where you want to place X? :";
 	cin >> choice;
 	cout << endl;
-	if ( choice > 9 || choice < 1 )
+	while (choice > 9 || choice < 1)
 	{
-		cout << "Elementas neegzistuoja, pasirinkite kita vieta";
-		sleep_for(seconds(5));
-		playerX(elementas);
+		cout << "Elementas neegzistuoja, pasirinkite kita vieta: ";
+		cin >> choice;
 	}
 	switch (choice)
 	{
 	case 1:
+		board(elementas);
 		if (elementas[0][0] == 'X' || elementas[0][0] == 'O')
 		{
 			cout << "Elementas uzimtas, pasirinkite kita vieta";
@@ -717,20 +717,25 @@ void Zaidimas::playerX(char elementas[3][3])
 
 void Zaidimas::playerNameOptions()
 {
+	string* p1;
+	string* p2;
+	p1 = &P1;
+	p2 = &P2;
 	system("CLS");
-	cout << "1as Zaidejas: " << P1<<endl;
-	cout << "2as Zaidejas: " << P2<<endl;
 	cout << endl;
-	cout << " Ar norite pakeisti vardus? [T/N] : ";
+	cout << "\t 1as Zaidejas: " << P1<<endl;
+	cout << "\t 2as Zaidejas: " << P2<<endl;
+	cout << endl;
+	cout << "\t Ar norite pakeisti vardus? [T/N] : ";
 	cin >> tn;
 	if (tn == 'T')
 	{
 		cout << endl;
-		cout << "Iveskite 1mo (X) Zaidejo varda: ";
-		cin >> P1;
+		cout << "\t Iveskite 1mo (X) Zaidejo varda: ";
+		cin >> *p1;
 		cout << endl;
-		cout << "Iveskite 2o (O) Zaidejo varda: ";
-		cin >> P2;
+		cout << "\t Iveskite 2o (O) Zaidejo varda: ";
+		cin >> *p2;
 		playerNameOptions();
 	}
 	if (tn == 'N')
